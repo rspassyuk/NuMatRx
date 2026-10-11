@@ -15,9 +15,9 @@ Decay-type and half-life filters act on channels. Manual decay channels are expl
 
 ## Solver and time grid
 
-The main method is adaptive sparse CRAM-16. Step doubling checks internal accuracy, with additional concentration and applicable inventory checks. The solver refines internal steps independently of the saved output grid. It does not fix a trajectory by clipping significant negative values or rescaling its total inventory.
+The GUI offers ordinary CRAM-16, adaptive CRAM-16, IPF CRAM-48, and Padé. Ordinary CRAM-16 takes one rational step from the initial vector to each output time. Adaptive CRAM-16 adds internal step refinement. Step doubling checks internal accuracy, with additional concentration and applicable inventory checks. The solver refines internal steps independently of the saved output grid. It does not fix a trajectory by clipping significant negative values or rescaling its total inventory.
 
-Padé uses SciPy's matrix exponential. The Python API also offers Taylor and BDF paths. The `cram48` method name is accepted for existing callers but routes to adaptive CRAM-16; comparing these two names is not independent solver validation. There is no MMPA implementation in the current code.
+Padé uses SciPy's matrix exponential. The Python API also offers Taylor and BDF paths. CRAM-48 is a distinct order-48 incomplete partial factorization with 24 complex poles and sequential vector updates. CRAM-16 uses an eight-pole partial-fraction form. Neither increasing the order nor successful completion guarantees relative accuracy for arbitrarily small inventories. There is no MMPA implementation in the current code.
 
 Evolution normally saves zero plus 399 geometrically spaced positive times. A time slider selects one of these saved points; it does not recompute at an arbitrary time. More output points improve temporal quadrature resolution, but do not substitute for solver error control.
 
@@ -123,6 +123,6 @@ The scanned parameters are reaction cross sections, decay constants, flux/energy
 
 ## Network boundaries and scientific validation
 
-An existing daughter object outside the matrix is a sink in the current assembly. For reactions with no linked daughter, the open-channel settings determine boundary loss. Decays outside the selected matrix can also remove material. Closed one-heavy-daughter networks can conserve nucleus count; arbitrary reaction networks need not.
+An existing daughter object outside the matrix is a sink in the current assembly. For unresolved neutron daughters, a supplied `open_boundary_mts` list overrides the global flag: listed MTs are open and unlisted MTs are closed. Thus a false global flag alone does not prove that every boundary channel is closed. For reactions with no linked daughter, the open-channel settings determine boundary loss. Decays outside the selected matrix can also remove material. Closed one-heavy-daughter networks can conserve nucleus count; arbitrary reaction networks need not.
 
 Check the initial inventory, enabled channels, data provenance, endpoints, signed concentrations and the total inventory before interpreting a curve. Averaging cannot recover missing nuclei or make an incomplete network reproduce a stellar abundance pattern. Observational comparisons require matching isotope selection, normalization, metallicity, initial seeds and irradiation assumptions.

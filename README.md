@@ -6,10 +6,11 @@
 
 ## Start here
 
-- [User guide (English)](docs/user-guide.md)
-- [Calculation methods and limitations](docs/methods.md)
-- [Architecture and source map](docs/architecture.md)
-- [GitHub and Read the Docs publication](docs/publication.md)
+- [Documentation home](docs/index.md)
+- [Installation](docs/installation.md) and [nuclear-data setup](docs/nuclear-data.md)
+- [Quick start without nuclear libraries](docs/quickstart.md)
+- [GUI user guide](docs/user-guide.md) and [tutorials](docs/tutorials/index.md)
+- [Methods](docs/methods.md), [Python API](docs/api.md), and [troubleshooting](docs/troubleshooting.md)
 
 ## Installation
 
@@ -54,10 +55,10 @@ Prepare `xsdir/` before starting calculations; see the data layout in the user g
 |---|---|
 | Nuclear data | ENDF-6 decay/reaction readers, rawmacs, ENDF/B-VII.1 and EAF-2010 MACS tables, TALYS, JSON/CSV user data |
 | Networks | Nuclide selection, decay-type and reaction-MT filters, half-life filters, manual decay channels, boundary diagnostics |
-| Evolution | Adaptive sparse CRAM-16; Padé through SciPy; physical-time trajectories |
+| Evolution | Single-step and adaptive CRAM-16; independent IPF CRAM-48; Padé through SciPy |
 | Abundance | Isotope inventories and sums by mass number A; absolute, relative and capture-cross-section-weighted displays |
 | Averaging | Uniform physical-time average; exponential irradiation-duration mixture; exponential neutron-exposure mixture |
-| Analysis | Equilibrium search, flux sweeps, OAT sensitivity, strongly connected components and elementary cycles |
+| Analysis | Equilibrium search, flux sweeps, OAT sensitivity, bounded elementary-cycle search |
 | Output | CSV/TXT tables, Matplotlib figures, saved result sessions |
 
 ENDF/B, JEFF, JENDL and TENDL data can be configured through the ENDF-6 layout. Available channels and energies depend on the actual files. A library name does not guarantee complete network coverage.
@@ -89,7 +90,7 @@ Open `docs/_build/html/index.html` locally. `.readthedocs.yaml` configures hoste
 
 Evolution solves a fixed-matrix model. It does not automatically model stellar structure, time-dependent neutron production, mixing between stellar zones, or stellar corrections to decay rates. Averaging combines stored trajectories; it does not repair missing reactions or boundary losses.
 
-The accepted API name `cram48` currently calls the same adaptive CRAM-16 solver. It is **not** an independent CRAM-48 implementation. MMPA is not implemented. See the methods page before interpreting a method comparison.
+CRAM-48 is a distinct IPF implementation. MMPA is not implemented. See the methods page for solver assumptions and the distinction between numerical checks and scientific validation.
 
 ## Project publications
 

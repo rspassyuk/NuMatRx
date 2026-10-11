@@ -27,9 +27,9 @@ ENDF / MACS / TALYS / user JSON and CSV
 | Module | Responsibility |
 |---|---|
 | `nuclear_data/models.py` | Dataclasses for decay channels, cross sections, MACS and isomeric branching |
-| `path_holder.py` | `EndfPathHolder`: database locations and discovery |
+| `nuclear_data/path_holder.py` | `EndfPathHolder`: database locations and discovery |
 | `endf_reader.py` | ENDF-6 decay and neutron data, including relevant MF=8/MT=457 and MF=3/9/10 sections |
-| `macs_reader.py`, `multi_macs_reader.py` | Single-temperature and multi-temperature MACS tables and caches |
+| `nuclear_data/macs_reader.py` | Single-temperature and multi-temperature MACS tables and caches |
 | `talys_reader.py` | TALYS cross-section and recommended MACS input |
 | `user_reader.py` | User JSON and CSV overrides |
 | `provider.py` | Source priorities, fallback and unified query interfaces |
@@ -43,7 +43,7 @@ The default decay priority is user data, then ENDF-6. Default MACS priority is u
 | `core/entities.py` | `ChemTable`, `Element`, `Isotope`, `DecayLink`, `ReactionLink`; linked domain objects |
 | `registry.py` | `IsotopeBuilder`; obtains evaluated rates and links daughters |
 | `burnup.py` | `BurnupConfig`, `BurnupMatrix`; filters, matrix and heat assembly, evolution and equilibrium |
-| `cram.py` | Adaptive sparse CRAM-16 action with numerical checks |
+| `cram.py` | Single-step CRAM-16, adaptive CRAM-16, and independent IPF CRAM-48 |
 | `service.py` | `NuclearService`, result dataclasses and GUI-facing orchestration |
 | `sensitivity.py` | `SensitivityConfig`, `SensitivityEngine`, `SensRow`, `LibRow`, `SensitivityResult` |
 | `cycle_finder.py` | `CycleAnalyzer`, `CycleStep`, `IsotopeCycle`, `SCC`; graph analysis |
@@ -68,7 +68,7 @@ Graph display controls never rerun the solver. The averaging engine reads a save
 
 ## Algorithms
 
-Cycle detection builds an adjacency graph from linked transitions, finds strongly connected components with Tarjan's algorithm, enumerates simple cycles by depth-first search and removes equivalent rotations. This implementation is not described as a full Johnson implementation. The GUI graph analysis can include stored links that are disabled in the current matrix.
+The GUI cycle search builds an adjacency graph from linked transitions and enumerates elementary cycles by iterative depth-first search with a fixed ordering of vertices. Time, length, and result-count limits and cancellation bound the search; partial results are identified. Separate connected-component utilities may exist in the module but are not assumed to be part of this enumeration path. This implementation is not described as a full Johnson implementation. The GUI graph analysis can include stored links that are disabled in the current matrix.
 
 OAT sensitivity solves a baseline target, perturbs one parameter at a time, rebuilds/solves and ranks absolute dimensionless coefficients. A concentration target may use a source-to-target subnetwork; a heat target uses the wider network. Library comparisons change source selection and report deviations, rather than derivatives.
 
