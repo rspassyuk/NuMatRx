@@ -7,10 +7,10 @@
 ## Start here
 
 - [Documentation home](docs/index.md)
-- [Installation](docs/installation.md) and [nuclear-data setup](docs/nuclear-data.md)
-- [Quick start without nuclear libraries](docs/quickstart.md)
-- [GUI user guide](docs/user-guide.md) and [tutorials](docs/tutorials/index.md)
-- [Methods](docs/methods.md), [Python API](docs/api.md), and [troubleshooting](docs/troubleshooting.md)
+- [Installation](docs/getting-started/installation.md) and [nuclear-data setup](docs/getting-started/nuclear-data.md)
+- [First calculation without nuclear libraries](docs/getting-started/first-calculation.md) and [first run in the application](docs/getting-started/first-gui-run.md)
+- [Using the application](docs/guide/overview.md) and [tutorials](docs/tutorials/index.md)
+- [Theory](docs/theory/network-equations.md), [Python API](docs/api/scripting.md), and [troubleshooting](docs/reference/troubleshooting.md)
 
 ## Installation
 
@@ -77,7 +77,7 @@ The regression tests use synthetic networks or temporary fixtures and do not req
 
 ## Documentation
 
-The Sphinx site is built from the English documentation in `docs/`. It does not import the application or require nuclear data.
+The Sphinx site is built from the English documentation in `docs/`. The API reference imports the numerical backend (`core`, `nuclear_data`) but not the GUI, and no nuclear data are needed.
 
 ```bash
 python -m pip install -r docs/requirements.txt

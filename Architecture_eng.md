@@ -1,4 +1,4 @@
-> For the maintained publication overview and current solver/averaging behavior, see [Architecture](docs/architecture.md) and [Methods](docs/methods.md). This earlier detailed API reference may describe older interfaces.
+> For the maintained publication overview and current solver/averaging behavior, see [Architecture](docs/reference/architecture.md) and [Theory](docs/theory/network-equations.md). This earlier detailed API reference may describe older interfaces.
 
 # NuMatRx Architecture Reference
 

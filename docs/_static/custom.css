@@ -1,0 +1,18 @@
+/* Hero block on the landing page */
+.hero-tagline {
+  font-size: 1.25rem;
+  line-height: 1.5;
+  margin: 0.5rem 0 1.5rem;
+  color: var(--color-foreground-secondary);
+}
+
+/* Screenshots: thin frame so light UI screenshots do not melt into the page */
+img.screenshot {
+  border: 1px solid var(--color-background-border);
+  border-radius: 6px;
+}
+
+/* Workflow steps on the landing page */
+.sd-card .sd-card-title {
+  font-weight: 600;
+}
