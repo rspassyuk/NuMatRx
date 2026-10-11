@@ -17,7 +17,7 @@
 Python 3.11 or newer is required. Use a virtual environment. The application uses Qt 5; Linux systems also need the system libraries required by Qt's platform plugin.
 
 ```bash
-git clone https://github.com/rspassyuk/KazNRDC.git NuMatRx
+git clone https://github.com/rspassyuk/NuMatRx.git NuMatRx
 cd NuMatRx
 python -m venv .venv
 ```

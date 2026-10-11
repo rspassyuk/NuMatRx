@@ -11,7 +11,7 @@ The dependency declarations require NumPy, SciPy, Matplotlib, and PyQt5. `requir
 Install Python and Git, then run:
 
 ```powershell
-git clone https://github.com/rspassyuk/KazNRDC.git NuMatRx
+git clone https://github.com/rspassyuk/NuMatRx.git NuMatRx
 cd NuMatRx
 python -m venv .venv
 .\.venv\Scripts\python.exe -m pip install -r requirements-endf.txt
@@ -36,7 +36,7 @@ These commands call the environment's interpreter directly; PowerShell script ac
 Use the same repository and a virtual environment:
 
 ```bash
-git clone https://github.com/rspassyuk/KazNRDC.git NuMatRx
+git clone https://github.com/rspassyuk/NuMatRx.git NuMatRx
 cd NuMatRx
 python3 -m venv .venv
 .venv/bin/python -m pip install -r requirements-endf.txt

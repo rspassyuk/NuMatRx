@@ -44,4 +44,4 @@ Keep the numerical export: a rendering failure is distinct from a solver failure
 
 ## Reporting a problem
 
-Provide the command or GUI action, full traceback, revision, Python/dependency versions, solver, initial vector, isotope list, irradiation settings, and a minimal input reproducing the issue. Describe private data by release and source where possible rather than uploading restricted libraries. Use the repository's [issue tracker](https://github.com/rspassyuk/KazNRDC/issues).
+Provide the command or GUI action, full traceback, revision, Python/dependency versions, solver, initial vector, isotope list, irradiation settings, and a minimal input reproducing the issue. Describe private data by release and source where possible rather than uploading restricted libraries. Use the repository's [issue tracker](https://github.com/rspassyuk/NuMatRx/issues).
