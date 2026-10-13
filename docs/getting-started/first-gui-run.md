@@ -1,75 +1,108 @@
-# Your first run in the application
+# Quick start: Pb-206 to Po-210
 
-In ten minutes you will build a small network in the lead–bismuth region, irradiate it with neutrons and plot the result. You need the nuclear data from {doc}`nuclear-data`.
+**Goal:** calculate a small neutron-capture and decay network and plot isotope inventories. Follow the Python or GUI route below with the same settings. The script requires a source installation; the GUI route also works with the installed application.
 
-## 1. Look at the data
+## 1. Prepare the data and settings
 
-Start the application. In **Periodic Table**, click **Pb**, then **Pb-209**. The panels show its half-life (about 3.25 h), its β⁻ decay to Bi-209 and its neutron reactions.
-
-```{image} ../_static/images/registry.png
-:alt: Periodic Table workspace with Pb-209 selected
-:class: screenshot
-```
-
-## 2. Build the network
-
-Open **Isotope Chart** and type the nuclides into the **Manual:** field:
+Download and configure `xsdir` as described in {doc}`nuclear-data`. This example uses eight ground-state nuclides:
 
 ```text
-Pb-206 Pb-207 Pb-208 Pb-209 Pb-210 Bi-209 Bi-210 Po-210
+Pb206 Pb207 Pb208 Pb209 Pb210 Bi209 Bi210 Po210
 ```
 
-Then set up the calculation in the tabs on the right:
+The main return path is:
 
-- **Calculation** tab: choose **Astrophysics** and the energy **30 keV**.
-- **Neutron** tab: tick **(n,γ)**.
-- **Decay** tab: keep all decay modes enabled.
-
-Press **Build Burnup Matrix**. Arrows on the chart now show every connection: neutron captures, β⁻ decays and the α decay of Po-210 back to Pb-206.
-
-```{image} ../_static/images/network.png
-:alt: Isotope chart with the selected nuclides and their links
-:class: screenshot
+```text
+Pb206 --(n,gamma)--> Pb207 --(n,gamma)--> Pb208 --(n,gamma)--> Pb209
+Pb209 --beta-minus--> Bi209 --(n,gamma)--> Bi210 --beta-minus--> Po210
+Po210 --alpha--> Pb206
 ```
 
-## 3. Run the evolution
+Pb-210 supplies an additional branch. Rates and branching fractions come from the installed libraries.
 
-Go to **Results → Evolution**.
-
-| Control | Value |
+| Setting | Value for both routes |
 |---|---|
-| Initial conditions | press **⟳ Load matrix isotopes**, then set Pb-206 = 1 and leave the rest at 0 |
-| Flux Φ [n/cm²/s] | `1e14` |
-| Time end | `1e14` s |
-| Method | CRAM-16 |
+| Decay and neutron ENDF library | ENDFB-VIII.0 |
+| MACS table selection | Endfb7 (ENDF/B-VII.0 column in rawmacs) |
+| MACS source priority | rawmacs → endfb71 → eaf2010 → talys → endf_computed |
+| User overrides | Disabled |
+| Calculation mode | Astrophysics, MACS at 30 keV |
+| Neutron reactions | (n,γ), MT=102 only |
+| Decays and half-life filter | All modes; all half-lives |
+| Initial inventories | Pb-206 = 1; all others = 0 |
+| Flux | `1e14` n/cm²/s |
+| Final time | `1e14` s |
+| Solver | Ordinary CRAM-16 |
+| Saved grid | Zero plus 399 logarithmically spaced times, `1e-6` to `1e14` s |
+| Capture boundary | Open for MT=102 |
 
-Press **Calculate Evolution**. The table fills with the inventory of every nuclide; drag the **Time step** slider to move through time.
+An open capture boundary allows material to leave this small network. Decays to nuclides outside the list can also remove material. The total tracked inventory need not stay at one. This is a teaching network, not a closed or complete termination model.
 
-```{image} ../_static/images/evolution.png
-:alt: Evolution results table
+## 2A. Run through Python
+
+From the repository folder:
+
+::::{tab-set}
+:::{tab-item} Windows (PowerShell)
+```powershell
+.\.venv\Scripts\python.exe examples/quickstart_pb_po.py --xsdir .\xsdir
+```
+:::
+:::{tab-item} Linux / macOS
+```bash
+.venv/bin/python examples/quickstart_pb_po.py --xsdir ./xsdir
+```
+:::
+::::
+
+Replace the `--xsdir` value with your data path. If omitted, the script checks `xsdir` in the repository and then beside it. Use `--output my_folder` to choose another output directory.
+
+The script assembles the matrix, checks that the main return-path links have positive rates, calculates 400 saved points and writes:
+
+| File in `results/quickstart_pb_po/` | Contents |
+|---|---|
+| `concentrations.png` | Inventory histories |
+| `evolution.csv` | Saved times and all eight inventories |
+| `channels.csv` | Linked daughters, capture cross sections, decay rates and sources |
+| `matrix.txt` | Assembled transition matrix |
+| `settings.json` | Calculation settings, diagnostics and final inventories |
+
+If a required cycle link is missing, the script stops with the link names. Check the libraries and ground/metastable-state branches instead of substituting zero rates.
+
+::::{dropdown} Full runnable script
+```{literalinclude} ../../examples/quickstart_pb_po.py
+:language: python
+```
+::::
+
+## 2B. Run through the GUI
+
+1. Start NuMatRx. In **Periodic Table**, inspect Pb-209 and confirm that decay data are loaded.
+2. In **Isotope Chart → Manual**, enter the eight labels above. Start with a fresh selection containing only these nuclides.
+3. Select **Astrophysics**, **30 keV**, the libraries and source priority in the settings table. Disable user-data overrides for this example.
+4. Enable only **(n,γ)** neutron reactions, all decay modes and all half-lives. Press **Build Burnup Matrix**.
+5. In **Results → Isotopes & Matrix**, inspect the channels and enable the **(n,γ)** open-boundary option. Apply/refresh the matrix after changing settings.
+6. In **Evolution**, load the matrix isotopes into the initial-composition table. Set **Pb-206 = 1** and every other inventory to **0**. Set flux `1e14`, final time `1e14` s, and ordinary **CRAM-16**. Run **Calculate Evolution**.
+7. In **Graph**, select the evolution concentration plot, **Absolute**, logarithmic time and inventory axes, then **Plot / Refresh**. Use the saved evolution result, not an averaged result.
+8. Export the numerical table and save the session if required.
+
+```{note}
+The GUI normally saves zero plus 399 positive times. If your version exposes grid settings, match the table above. Exact agreement also requires the same data files, reaction branches and boundary settings. Inspect the actual matrix if the curves differ.
+```
+
+## Example plot
+
+```{image} ../_static/images/quickstart_pb_po.png
+:alt: Computed inventories for the eight-nuclide Pb–Bi–Po quick start
 :class: screenshot
 ```
 
-## 4. Plot it
+This plot was generated by the script with the settings above and the installed data used for the documentation check. For readability, the image shows times from `1e8` to `1e14` s and inventories above `1e-14`; the CSV retains all 400 times and unmodified values. Library revisions can change the curves. This is a calculated example, not an experimental reference.
 
-Open **Graph**, choose **Concentrations vs time** and press **Plot / Refresh**. You can follow the material along the chain:
+## 3. Read and compare the result
 
-- up to about $10^{11}$ s, Pb-206 is slowly converted into Pb-207 and Pb-208;
-- around $10^{12}$ s Bi-209 appears, fed by the β⁻ decay of Pb-209;
-- after about $10^{13}$ s the curves become flat. Material now circulates around the Pb–Bi–Po cycle, and the composition no longer changes: roughly three quarters Pb-208, 15 % Bi-209, the rest Pb-206 and Pb-207, with traces of Po-210.
+Initially only Pb-206 is populated. Capture feeds Pb-207 and Pb-208; subsequent capture and decay feed bismuth and polonium. The alpha-decay link from Po-210 provides a return path to Pb-206. The timing, final fractions and boundary losses depend on the actual rates.
 
-```{image} ../_static/images/plotting.png
-:alt: Concentrations of the selected nuclides versus time
-:class: screenshot
-```
+Compare the GUI's **absolute** inventories at the final time with `settings.json`, and export the GUI trajectory to compare with `evolution.csv`. Match isotope names and times before comparing columns. A flat-looking curve alone does not establish that equilibrium has been reached.
 
-## 5. Keep the result
-
-- The **csv** and **txt** export buttons write the numbers of the run.
-- **Save…** stores the run in a `.kaz` session file; **Open…** shows a saved session in a separate window.
-
-## Where next
-
-- The {doc}`../guide/overview` explains every workspace in detail.
-- {doc}`../tutorials/termination-cycle` continues with this network: cycles, equilibrium and sensitivity.
-- {doc}`../tutorials/s-process-from-iron` builds a full network from Fe-56 to the termination region.
+This example demonstrates both interfaces. It does not prescribe universal final fractions or reproduce a published stellar model. Continue with {doc}`../tutorials/termination-cycle` for a larger network, or {doc}`../tutorials/s-process-from-iron` for an iron-seeded calculation.

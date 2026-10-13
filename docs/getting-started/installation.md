@@ -69,7 +69,7 @@ Place it in the repository root, alongside `core`, `model`, and
 `nuclear_data`, then follow {doc}`nuclear-data`.
 ```
 
-### Check the source installation
+### Installation check (source installation)
 
 Run the built-in test calculation. This synthetic example does not
 need `xsdir` or any other nuclear data:
@@ -88,7 +88,7 @@ need `xsdir` or any other nuclear data:
 ::::
 
 The script prints `"passed": true` when its solver and averaging
-checks pass. {doc}`first-calculation` explains what it computes.
+checks pass. The {doc}`first-calculation` page explains the synthetic test. Continue with {doc}`first-gui-run` for a Pb–Bi–Po calculation through Python or the GUI.
 
 ### Start from source
 

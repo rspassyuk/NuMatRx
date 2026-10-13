@@ -8,7 +8,7 @@
 
 - [Documentation home](docs/index.md)
 - [Installation](docs/getting-started/installation.md) and [nuclear-data setup](docs/getting-started/nuclear-data.md)
-- [First calculation without nuclear libraries](docs/getting-started/first-calculation.md) and [first run in the application](docs/getting-started/first-gui-run.md)
+- [Installation check (no nuclear libraries)](docs/getting-started/first-calculation.md) and [Quick start: Python and GUI](docs/getting-started/first-gui-run.md)
 - [Using the application](docs/guide/overview.md) and [tutorials](docs/tutorials/index.md)
 - [Theory](docs/theory/network-equations.md), [Python API](docs/api/scripting.md), and [troubleshooting](docs/reference/troubleshooting.md)
 

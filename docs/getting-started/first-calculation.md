@@ -1,74 +1,49 @@
-# Quick start
+# Installation check
 
-This example runs in a few seconds and needs no nuclear libraries. It builds the simplest possible network — one unstable nuclide decaying into a stable one — solves it with every solver in NuMatRx, and compares the result with the exact answer.
+**Goal:** check the numerical installation before loading nuclear libraries. This optional command-line check is for a source installation; installer users can proceed directly to the {doc}`first-gui-run` after configuring `xsdir`.
 
-## Run it
+## Run the check
 
-```bash
-python examples/documentation_quickstart.py
+From the repository folder, after {doc}`installation`:
+
+::::{tab-set}
+:::{tab-item} Windows (PowerShell)
+```powershell
+.\.venv\Scripts\python.exe examples/documentation_quickstart.py
 ```
+:::
+:::{tab-item} Linux / macOS
+```bash
+.venv/bin/python examples/documentation_quickstart.py
+```
+:::
+::::
 
-Use the Python from your virtual environment (see {doc}`installation`). Add `--output my_folder` to choose where the results go.
+No `xsdir` is needed. Successful completion prints `"passed": true`; a failed numerical check raises an error. Use `--output my_folder` to select an output directory.
 
-## What it computes
+## What is checked?
 
-Two nuclides with a decay rate $\lambda = 1\ \mathrm{s^{-1}}$ from the first to the second, starting from $N_1 = 1$, $N_2 = 0$. The exact solution is
+A synthetic chain $X_1 \rightarrow X_2$ has rate $\lambda=1\ \mathrm{s}^{-1}$, a stable daughter, and initial inventories $(1,0)$. Its exact solution is
 
-$$
-N_1(t) = e^{-t}, \qquad N_2(t) = 1 - e^{-t}.
-$$
+$$N_1(t)=e^{-t},\qquad N_2(t)=1-e^{-t}.$$
+
+At 2 s the inventories are approximately **0.1353352832** and **0.8646647168**. The script compares Padé, CRAM-16, adaptive CRAM-16 and CRAM-48 with this solution. It also checks the uniform average over 0–2 s: approximately **0.4323323584** and **0.5676676416**.
 
 ```{note}
-The script labels the two nuclides Fe-56 and Co-56 only to exercise the isotope API. The decay rate is artificial — real Fe-56 is stable.
+Fe-56 and Co-56 are technical labels in this synthetic test. The assigned decay rate and daughter stability are artificial; this is not a physical Fe–Co decay calculation.
 ```
 
-The script checks four solvers at $t = 0,\ 0.5,\ 1,\ 2,\ 5$ s:
+The assertions use relative/absolute comparison tolerances of `1e-9`/`2e-12` for propagation and an absolute tolerance of `5e-8` for the trapezoidal average. These are test thresholds, not solver settings.
 
-| Solver | Name in code |
-|---|---|
-| Padé (SciPy) | `pade` |
-| CRAM-16 | `cram16` |
-| Adaptive CRAM-16 | `cram16_adaptive` |
-| CRAM-48 | `cram48` |
+## Output
 
-It then averages the trajectory over $0 \le t \le 2$ s and compares with the exact mean values
+- `results/documentation_quickstart/evolution.csv`: inventories from each solver.
+- `results/documentation_quickstart/verification.json`: errors, averaged inventories and pass status.
 
-$$
-\langle N_1 \rangle = \frac{1 - e^{-2}}{2} \approx 0.4323, \qquad
-\langle N_2 \rangle \approx 0.5677 .
-$$
+Passing checks this small numerical example. GUI startup and nuclear-data loading are exercised separately in the {doc}`first-gui-run`.
 
-## What you get
-
-```text
-results/documentation_quickstart/
-├── evolution.csv         inventories for every solver and time
-└── verification.json     errors, mean values, "passed": true
-```
-
-At $t = 2$ s you should see $N_1 \approx 0.1353$ and $N_2 \approx 0.8647$, with errors below $10^{-9}$ for every solver.
-
-## The code
-
-The whole calculation takes a dozen lines. This is the core of it:
-
-```python
-from core.entities import Isotope, DecayLink
-from core.burnup import BurnupConfig, BurnupMatrix
-
-parent, daughter = Isotope(26, "Fe", 56), Isotope(27, "Co", 56)
-parent.decay_constant = 1.0
-parent.add_decay(DecayLink("beta-", 1.0, 0.0, 1, 0, product=daughter))
-
-matrix = BurnupMatrix([parent, daughter], BurnupConfig(flux=0.0))
-matrix.build()
-print(matrix.solve([1.0, 0.0], 2.0, method="cram16"))   # [0.1353 0.8647]
-```
-
-::::{dropdown} Full script
+::::{dropdown} Full verification script
 ```{literalinclude} ../../examples/documentation_quickstart.py
 :language: python
 ```
 ::::
-
-Next: {doc}`first-gui-run` with real nuclear data, or {doc}`../api/scripting` to continue in Python.

@@ -58,11 +58,11 @@ Which cross section, half-life or data library controls your result, ranked by s
 Install from source on Windows, Linux or macOS, and connect the nuclear data.
 :::
 
-:::{grid-item-card} {octicon}`rocket` First calculation
-:link: getting-started/first-calculation
+:::{grid-item-card} {octicon}`rocket` Quick start
+:link: getting-started/first-gui-run
 :link-type: doc
 
-A two-minute calculation that needs no nuclear libraries, checked against the exact answer.
+Build and solve a Pb–Bi–Po network through Python or the GUI.
 :::
 
 :::{grid-item-card} {octicon}`browser` Using the application
