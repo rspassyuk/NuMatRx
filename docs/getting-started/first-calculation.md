@@ -1,4 +1,4 @@
-# Your first calculation
+# Quick start
 
 This example runs in a few seconds and needs no nuclear libraries. It builds the simplest possible network — one unstable nuclide decaying into a stable one — solves it with every solver in NuMatRx, and compares the result with the exact answer.
 
