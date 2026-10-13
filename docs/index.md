@@ -12,7 +12,7 @@ $$
 with CRAM or Padé. The same engine serves reactor-physics problems (pointwise cross sections at a neutron energy) and stellar nucleosynthesis (Maxwellian-averaged cross sections at a temperature $kT$).
 
 ```{image} _static/images/network.png
-:alt: Isotope chart with a selected Pb–Bi–Po network
+:alt: NuMatRx isotope chart with astrophysics calculation controls
 :class: screenshot
 ```
 
@@ -102,7 +102,7 @@ Run the same calculations from scripts and notebooks.
 4. **Analyse.** Plot concentrations, heat and abundances in *Graph*, average over time or neutron exposure, export tables and save the session.
 
 ```{note}
-The screenshots in this documentation show a compact Pb–Bi–Po network because it is small enough to read on screen. NuMatRx is not limited to this region: networks can start anywhere on the chart and contain thousands of nuclides. See the {doc}`tutorials/s-process-from-iron` tutorial for a network of about 2600 isotopes.
+The screenshots illustrate the nuclear-data browser, networks in the Pb–Bi–Po region, and iron-seeded abundance averaging. They demonstrate interface controls; the settings and isotope lists differ between examples. NuMatRx is not limited to this region: networks can start anywhere on the chart and contain thousands of nuclides. See the {doc}`tutorials/s-process-from-iron` tutorial for a network of about 2600 isotopes.
 ```
 
 ## Citing NuMatRx

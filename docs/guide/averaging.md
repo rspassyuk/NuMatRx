@@ -2,6 +2,13 @@
 
 An evolution run gives the inventory at each moment of one irradiation. Often you need something else: a **mean** over a period, or a **mixture** of material that was irradiated for different lengths of time. The classical *s*-process is the standard example — the solar abundances are reproduced by a mixture with an exponential distribution of neutron exposures. The *Trajectory averaging* panel does this for any saved evolution run.
 
+```{figure} ../_static/images/results_averaging.png
+:alt: Trajectory averaging table and diagnostics for an iron-seeded run
+:class: screenshot
+
+Exposure averaging with τ₀ = 0.3 mbarn⁻¹: isotope averages, integration diagnostics and export controls. This supplied screenshot retains the historical KazNRDC window title; the program is now named NuMatRx.
+```
+
 ## Choose a distribution
 
 | Distribution | Input | Meaning |
@@ -28,7 +35,7 @@ Two tables appear: **Isotopes** with the mean inventory of every nuclide, and **
 
 ## Check the diagnostics
 
-Under the tables, the panel reports how good the average is:
+The diagnostics area reports the integration coverage, weights and inventory checks:
 
 - **Coverage / tail** — how much of the exponential distribution lies inside the calculated time range. If the tail is large, calculate a longer evolution.
 - **Weight integral / relative error** — whether the saved time grid resolves the weighting function.
@@ -43,3 +50,47 @@ Under the tables, the panel reports how good the average is:
 - **Save averaged session** stores the run together with its average.
 
 Averaging again with other parameters replaces the previous average. To compare several distributions, save a session for each.
+
+## Averaged abundance views
+
+Select **Abundance vs mass number A → Averaged results** in Graph. These screenshots show separate averaging modes; the time-step indicator does not set the averaging interval. The settings quoted below are those visible in the plot titles.
+
+::::{tab-set}
+
+:::{tab-item} Exposure: N
+```{figure} ../_static/images/abundance_exposure_mean.png
+:alt: Exposure-averaged mass-number abundances at tau0 0.3 inverse millibarn
+:class: screenshot
+
+Absolute mass-number abundances for τ₀ = 0.3 mbarn⁻¹. Each bin sums the averaged inventories of isotopes with the same mass number.
+```
+:::
+
+:::{tab-item} Exposure: sigma N
+```{figure} ../_static/images/abundance_exposure_capture_weighted.png
+:alt: Capture-weighted exposure-averaged mass-number distribution
+:class: screenshot
+
+Capture-weighted mass-number sums for τ₀ = 0.3 mbarn⁻¹, displayed in barn × inventory. This is a different observable from the absolute abundance.
+```
+:::
+
+:::{tab-item} Uniform time
+```{figure} ../_static/images/abundance_uniform_time_mean.png
+:alt: Uniform time-averaged abundances from 1e-6 to 1e12 seconds
+:class: screenshot
+
+Uniform time average over 10⁻⁶–10¹² s, shown in absolute inventory units.
+```
+:::
+
+:::{tab-item} Exponential durations
+```{figure} ../_static/images/abundance_exponential_duration_mean.png
+:alt: Exponential duration average with mean 1.2e10 seconds and end 1e15 seconds
+:class: screenshot
+
+Exponential irradiation-duration mixture with t₀ = 1.2 × 10¹⁰ s and an end time of 10¹⁵ s, shown in absolute inventory units.
+```
+:::
+
+::::

@@ -2,12 +2,16 @@
 
 The *Results* workspace holds everything that turns a matrix into numbers. Its tabs are **Isotopes & Matrix**, **Evolution**, **Equilibrium** and **Sensitivity**; the **Trajectory averaging** panel works on the latest evolution run (see {doc}`averaging`).
 
-```{image} ../_static/images/evolution.png
-:alt: Results workspace, Evolution tab
-:class: screenshot
-```
+The screenshots illustrate separate interface examples; their networks and irradiation settings can differ.
 
 ## Isotopes & Matrix
+
+```{figure} ../_static/images/results_matrix.png
+:alt: Isotope properties, reaction rates, cycle list and manual decay controls
+:class: screenshot
+
+Network inspection with isotope properties, reaction rates, cycle information and manual decay channels.
+```
 
 This tab lists every nuclide in the network with its half-life, enabled decay channels, cross sections and reaction rates.
 
@@ -31,6 +35,13 @@ Search the table with **Ctrl+F**.
 A manual channel overrides the library for that parent and mode and ignores the global decay filters. This lets you, for example, keep only β⁻ decays in a network but add the single α decay Po-210 → Pb-206 that closes the termination cycle. Leave the daughter empty to send the decay out of the network. Press **+ Add**, then **Refresh Matrix View**.
 
 ## Evolution
+
+```{figure} ../_static/images/evolution.png
+:alt: Evolution table with isotope inventories, mass-number sums and energy release
+:class: screenshot
+
+Inventories and energy-release estimates at the selected saved time. The displayed example uses a Pb-206 initial inventory.
+```
 
 Evolution solves the network for a constant flux from time zero to the end time.
 
@@ -58,6 +69,13 @@ Units follow your input. If you start with Fe-56 = 1, every number is "per initi
 
 ## Equilibrium
 
+```{figure} ../_static/images/results_equilibrium.png
+:alt: Flux scan results and user-specified irradiation times
+:class: screenshot
+
+The Equilibrium workspace in Manual times mode. Each row corresponds to a specified flux–time pair; this view alone does not demonstrate that a plateau was reached.
+```
+
 Equilibrium runs the same network for a whole list of fluxes, each one as an independent irradiation from the initial composition.
 
 - **Auto plateau** — for each flux, NuMatRx increases the time until the inventories stop changing.
@@ -66,6 +84,13 @@ Equilibrium runs the same network for a whole list of fluxes, each one as an ind
 Enter fluxes separated by spaces (`1e12 1e13 1e14`) and press **Calculate Equilibrium**. The table lists flux, time reached and heat; the inventories are kept for the *Equilibrium* plots.
 
 ## Sensitivity
+
+```{figure} ../_static/images/results_sensitivity.png
+:alt: Sensitivity coefficients for Pb-209 at 1e10 seconds
+:class: screenshot
+
+Ranked sensitivity coefficients for the Pb-209 inventory at 10¹⁰ s, with a separate library-comparison table.
+```
 
 Sensitivity tells you which inputs control a chosen result. Choose:
 
