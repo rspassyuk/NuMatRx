@@ -105,4 +105,4 @@ Initially only Pb-206 is populated. Capture feeds Pb-207 and Pb-208; subsequent 
 
 Compare the GUI's **absolute** inventories at the final time with `settings.json`, and export the GUI trajectory to compare with `evolution.csv`. Match isotope names and times before comparing columns. A flat-looking curve alone does not establish that equilibrium has been reached.
 
-This example demonstrates both interfaces. It does not prescribe universal final fractions or reproduce a published stellar model. Continue with {doc}`../tutorials/termination-cycle` for a larger network, or {doc}`../tutorials/s-process-from-iron` for an iron-seeded calculation.
+This example demonstrates both interfaces. Continue with {doc}`../tutorials/termination-cycle` for a larger network, or {doc}`../tutorials/s-process-from-iron` for an iron-seeded calculation.
