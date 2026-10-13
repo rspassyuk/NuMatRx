@@ -2,7 +2,7 @@
 
 Use this workspace before building a network: it shows exactly what the installed libraries contain for each isotope.
 
-```{image} ../_static/images/registry.png
+
 :alt: Periodic Table workspace
 :class: screenshot
 ```
