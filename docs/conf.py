@@ -18,11 +18,12 @@ extensions = [
     "sphinx.ext.autodoc",
     "sphinx.ext.napoleon",
     "sphinx.ext.viewcode",
+    "sphinx.ext.intersphinx",
     "sphinx_design",
     "sphinx_copybutton",
 ]
 
-myst_enable_extensions = ["dollarmath", "amsmath", "colon_fence", "deflist", "attrs_inline", "attrs_block"]
+myst_enable_extensions = ["dollarmath", "amsmath", "colon_fence", "deflist", "attrs_inline", "attrs_block", "fieldlist"]
 myst_heading_anchors = 3
 
 source_suffix = {".md": "markdown"}
@@ -63,3 +64,10 @@ html_theme_options = {
 }
 copybutton_prompt_text = r"^(\$ |>>> |PS> )"
 copybutton_prompt_is_regexp = True
+
+# --- Cross-references to Python and NumPy -------------------------------------
+intersphinx_mapping = {
+    "python": ("https://docs.python.org/3", None),
+    "numpy": ("https://numpy.org/doc/stable", None),
+    "scipy": ("https://docs.scipy.org/doc/scipy", None),
+}

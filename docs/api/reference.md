@@ -1,110 +1,67 @@
 # API reference
 
-Generated from the docstrings of the source code. For a guided introduction see {doc}`scripting`.
+This reference describes the Python interface of NuMatRx: every public class, its parameters and attributes, and what each method returns. For a guided introduction with complete examples, start with {doc}`scripting`.
 
-## Network objects — `core.entities`
+## Package map
 
-```{eval-rst}
-.. autoclass:: core.entities.Isotope
-   :members: add_decay, add_reaction, getListOfDecays, getListOfReactions, name, from_symbol
+NuMatRx has two Python packages. The GUI (`model/`) is built on top of them and is not part of the public API.
 
-.. autoclass:: core.entities.DecayLink
-
-.. autoclass:: core.entities.ReactionLink
+```text
+nuclear_data/            reading nuclear data from files          → Nuclear data
+core/
+├── entities, registry   nuclides, links, building a network      → Network
+├── burnup, cram         burnup matrix and solvers                → Burnup matrix and solvers
+├── service              the high-level facade used by the GUI    → Application service
+├── exposure             time and exposure averaging              → Analysis
+├── sensitivity          one-at-a-time sensitivity                → Analysis
+├── cycle_finder         closed reaction cycles                   → Analysis
+└── session, plotting    saving results, figures                  → Sessions and plotting
 ```
 
-## Building networks from data — `core.registry`
+## How the classes work together
 
-```{eval-rst}
-.. autoclass:: core.registry.IsotopeBuilder
-   :members: build_isotope, build_range, missing_isotopes, print_report, link_products
+```text
+ NuclearDataProvider ──▶ IsotopeBuilder ──▶ [Isotope, DecayLink, ReactionLink]
+   (nuclear_data)          (registry)                    │
+                                                         ▼
+                              BurnupConfig ──▶ BurnupMatrix ──▶ N(t), heat
+                                                         │
+ NuclearService ── wraps all of the above ──▶ RunResult / EqResult
+                                                         │
+                     average_run · SensitivityEngine · CycleAnalyzer · save_session
 ```
 
-## Burnup matrix and solvers — `core.burnup`
+There are three ways in, from the most explicit to the most convenient:
 
-```{eval-rst}
-.. autoclass:: core.burnup.BurnupConfig
-   :members: set_open_boundary, set_open_boundary_mts, set_decay_mode_filter, enable_all_reactions, enable_specific_reactions, set_decay_time_filter, set_decay_time_range
+| Level | Entry point | You provide |
+|---|---|---|
+| hand-built network | {py:class}`~core.entities.Isotope`, {py:class}`~core.burnup.BurnupMatrix` | decay constants and cross sections yourself |
+| network from data | {py:class}`~nuclear_data.provider.NuclearDataProvider`, {py:class}`~core.registry.IsotopeBuilder` | paths to the libraries and a list of nuclides |
+| application service | {py:class}`~core.service.NuclearService` | the project folder; results come back as {py:class}`~core.service.RunResult` |
 
-.. autoclass:: core.burnup.BurnupMatrix
-   :members: build, solve, evolve, heat_release, heat_curve, solve_equilibrium, find_plateau, equilibrium_heat, names, export_txt, export_evolution_txt, validate
+## Conventions
 
-.. autofunction:: core.burnup.equilibrium_heat_vs_flux
-```
+| Topic | Convention |
+|---|---|
+| Inventory vectors | ordered as {py:meth}`BurnupMatrix.names() <core.burnup.BurnupMatrix.names>`; units are those of the initial inventory |
+| Time | seconds |
+| Flux | neutrons cm⁻² s⁻¹ |
+| Energy arguments | `E_eV`, `energy_eV` in eV; `kT_keV` in keV (30 keV = `30000.0` eV) |
+| Cross sections | barn in links and matrices; millibarn in MACS tables ({py:class}`~nuclear_data.models.MacsPoint`) |
+| Heat | MeV s⁻¹ per unit of initial inventory |
+| Nuclide labels | `"Pb-206"`, `"Bi-210m1"`; tuples `(Z, "Pb", A)` or `(Z, "Pb", A, meta)` |
+| Reaction channels | ENDF MT numbers: 102 (n,γ), 103 (n,p), 107 (n,α), 16 (n,2n), 18 fission |
+| Decay modes | `"beta-"`, `"ec/beta+"`, `"it"`, `"alpha"`, `"n"`, `"sf"`, `"p"` |
 
-## CRAM — `core.cram`
+## Pages
 
-```{eval-rst}
-.. autofunction:: core.cram.cram16_step
-.. autofunction:: core.cram.adaptive_cram16
-.. autofunction:: core.cram.cram48_step
-```
+```{toctree}
+:maxdepth: 2
 
-## Application service — `core.service`
-
-```{eval-rst}
-.. autoclass:: core.service.NuclearService
-   :members: init, info, build_universe, build_universe_from_labels, build_matrix, run_evolution, run_equilibrium_scan, run_equilibrium_auto, run_sensitivity, minimal_subnetwork
-
-.. autoclass:: core.service.RunResult
-   :members: final
-
-.. autoclass:: core.service.EqResult
-```
-
-## Averaging — `core.exposure`
-
-```{eval-rst}
-.. autoclass:: core.exposure.ExposureConfig
-.. autoclass:: core.exposure.ExposureResult
-.. autofunction:: core.exposure.average_run
-.. autofunction:: core.exposure.average_exposure
-.. autofunction:: core.exposure.isotope_values
-.. autofunction:: core.exposure.mass_values
-.. autofunction:: core.exposure.export_exposure
-```
-
-## Sensitivity — `core.sensitivity`
-
-```{eval-rst}
-.. autoclass:: core.sensitivity.SensitivityConfig
-.. autoclass:: core.sensitivity.SensitivityEngine
-   :members: run
-.. autoclass:: core.sensitivity.SensitivityResult
-   :members: ranked
-.. autoclass:: core.sensitivity.SensRow
-.. autoclass:: core.sensitivity.LibRow
-```
-
-## Cycles — `core.cycle_finder`
-
-```{eval-rst}
-.. autoclass:: core.cycle_finder.CycleAnalyzer
-   :members: find_all_cycles, find_sccs, has_cycles, isotopes_in_cycles, cycles_through, print_report
-
-.. autoclass:: core.cycle_finder.IsotopeCycle
-   :members: length, isotope_names, is_pure_decay, is_pure_reaction, is_mixed, n_decays, n_reactions
-```
-
-## Sessions and plots — `core.session`, `core.plotting`
-
-```{eval-rst}
-.. autofunction:: core.session.save_session
-.. autofunction:: core.session.load_session
-.. autofunction:: core.plotting.plot_concentrations
-.. autofunction:: core.plotting.plot_heat
-.. autofunction:: core.plotting.plot_heat_vs_flux
-```
-
-## Nuclear data — `nuclear_data`
-
-```{eval-rst}
-.. autoclass:: nuclear_data.NuclearDataProvider
-   :members: get_decay, get_macs, get_macs_with_source, get_sigma, get_sigma_with_source, get_reaction_data, set_dec_priority, set_macs_priority
-
-.. autoclass:: nuclear_data.EndfPathHolder
-   :members: init_xsdir
-
-.. autoclass:: nuclear_data.UserDataReader
-   :members: reload, list_isotopes
+network
+burnup
+service
+analysis
+nuclear-data
+io
 ```
