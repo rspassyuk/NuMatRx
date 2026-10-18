@@ -1,0 +1,50 @@
+cff-version: 1.2.0
+message: "If you use NuMatRx, please cite it using the metadata below."
+type: software
+title: "NuMatRx: a matrix burnup framework for reactor physics and stellar nucleosynthesis"
+version: 1.0.0
+date-released: 2026-10-18
+license: MIT
+repository-code: "https://github.com/rspassyuk/NuMatRx"
+abstract: >-
+  NuMatRx is a Python framework with a graphical interface for nuclear reaction
+  networks. It reads evaluated nuclear data (ENDF-6 libraries, MACS tables,
+  TALYS output and a user database), builds transmutation networks on an
+  interactive isotope chart, and solves the burnup equations with
+  matrix-exponential methods (CRAM-16, adaptive CRAM-16, CRAM-48, Padé).
+  It provides heat release, equilibrium search, cycle analysis, one-at-a-time
+  sensitivity, and time and neutron-exposure averaging of abundances, for
+  reactor physics and s-process nucleosynthesis studies.
+keywords:
+  - nuclear reaction networks
+  - burnup
+  - matrix exponential
+  - CRAM
+  - s-process
+  - nucleosynthesis
+  - ENDF
+authors:
+  - family-names: Kenzhebayev
+    given-names: Nurzat
+    orcid: "https://orcid.org/0000-0002-9505-3492"
+    affiliation: "Fesenkov Astrophysical Institute; Al-Farabi Kazakh National University"
+  - family-names: Khassanov
+    given-names: Manas
+    orcid: "https://orcid.org/0000-0001-9857-0658"
+    affiliation: "Fesenkov Astrophysical Institute; Al-Farabi Kazakh National University"
+  - family-names: Spassyuk
+    given-names: Ruslan
+    orcid: "https://orcid.org/0000-0002-7780-2533"
+    affiliation: "Fesenkov Astrophysical Institute; Al-Farabi Kazakh National University"
+  - family-names: Anarbek
+    given-names: Daulet
+    orcid: "https://orcid.org/0009-0005-8701-1400"
+    affiliation: "Fesenkov Astrophysical Institute; Al-Farabi Kazakh National University"
+  - family-names: Aimuratov
+    given-names: Yerlan
+    orcid: "https://orcid.org/0000-0001-5717-6523"
+    affiliation: "Fesenkov Astrophysical Institute; Al-Farabi Kazakh National University"
+  - family-names: Abishev
+    given-names: Medeu
+    orcid: "https://orcid.org/0000-0003-3602-6934"
+    affiliation: "Fesenkov Astrophysical Institute; Al-Farabi Kazakh National University"

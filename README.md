@@ -107,7 +107,9 @@ Developed at the Fesenkov Astrophysical Institute, Almaty, Kazakhstan, within gr
 
 Core team: N. Kenzhebayev, M. Khassanov, R. Spassyuk, D. Anarbek and M. Abishev.
 
-This checkout has no project license file. A public repository alone does not grant an open-source license; the authors must select and add the appropriate license. Nuclear datasets retain their own terms and attribution requirements.
+NuMatRx is distributed under the [MIT License](LICENSE). Nuclear datasets are not part of the repository and keep their own terms and attribution requirements.
+
+To cite NuMatRx, use the metadata in [CITATION.cff](CITATION.cff) (GitHub shows it under *Cite this repository*).
 
 
 ## Downloads
