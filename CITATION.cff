@@ -24,14 +24,6 @@ keywords:
   - nucleosynthesis
   - ENDF
 authors:
-  - family-names: Kenzhebayev
-    given-names: Nurzat
-    orcid: "https://orcid.org/0000-0002-9505-3492"
-    affiliation: "Fesenkov Astrophysical Institute; Al-Farabi Kazakh National University"
-  - family-names: Khassanov
-    given-names: Manas
-    orcid: "https://orcid.org/0000-0001-9857-0658"
-    affiliation: "Fesenkov Astrophysical Institute; Al-Farabi Kazakh National University"
   - family-names: Spassyuk
     given-names: Ruslan
     orcid: "https://orcid.org/0000-0002-7780-2533"
@@ -39,6 +31,14 @@ authors:
   - family-names: Anarbek
     given-names: Daulet
     orcid: "https://orcid.org/0009-0005-8701-1400"
+    affiliation: "Fesenkov Astrophysical Institute; Al-Farabi Kazakh National University"
+  - family-names: Khassanov
+    given-names: Manas
+    orcid: "https://orcid.org/0000-0001-9857-0658"
+    affiliation: "Fesenkov Astrophysical Institute; Al-Farabi Kazakh National University"
+  - family-names: Kenzhebayev
+    given-names: Nurzat
+    orcid: "https://orcid.org/0000-0002-9505-3492"
     affiliation: "Fesenkov Astrophysical Institute; Al-Farabi Kazakh National University"
   - family-names: Aimuratov
     given-names: Yerlan
