@@ -103,9 +103,9 @@ The earlier [nr-tool project](https://github.com/Nurzat-89/nr-tool) provides his
 
 ## Authors, funding and license
 
-Developed at the Fesenkov Astrophysical Institute, Almaty, Kazakhstan, within grant AP23488136, *The Energy Release of Cyclic Reactions of the Kilonova GW170817–GRB170817A–AT2017gfo* (Principal Investigator: Yerlan Aimuratov).
+NuMatRx was developed by the team of the Fesenkov Astrophysical Institute LLP (Almaty, Kazakhstan) within the grant-funded project *Energy Release of Cyclic Reactions of the Kilonova GW170817–GRB170817A–AT2017gfo* (Principal Investigator: Yerlan Aimuratov). The research is funded by the Science Committee of the Ministry of Science and Higher Education of the Republic of Kazakhstan (IRN AP23488136), Contract No. 318/GF24-26 of 9 September 2024.
 
-Core team: N. Kenzhebayev, M. Khassanov, R. Spassyuk, D. Anarbek and M. Abishev.
+Authors: R. Spassyuk, D. Anarbek, M. Khassanov, N. Kenzhebayev, Y. Aimuratov and M. Abishev.
 
 NuMatRx is distributed under the [MIT License](LICENSE). Nuclear datasets are not part of the repository and keep their own terms and attribution requirements.
 
